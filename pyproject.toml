@@ -1,7 +1,7 @@
 [project]
 name = "pfun-health-github-io"
 version = "0.1.0"
-description = "Add your description here"
+description = "github pages repo for pfun-health"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
