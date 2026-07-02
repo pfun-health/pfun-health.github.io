@@ -1,4 +1,4 @@
-#!/bin/bash
+#!//usr/bin/env bash
 
 # Build and serve documentation for pfun-cma-model submodule
 

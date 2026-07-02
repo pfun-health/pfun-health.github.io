@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PFun IP Collaborative - Product & Business Model</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* Essential constraint for chart container to prevent overflow and manage responsive sizing */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 400px;
+            max-height: 500px;
+        }
+        @media (max-width: 768px) {
+            .chart-container {
+                height: 300px;
+            }
+        }
+        
+        /* Custom scrollbar for a cleaner look */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8; 
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-stone-50 text-slate-800 font-sans antialiased overflow-x-hidden">
+
+    <!-- Chosen Palette: Warm Neutrals with Deep Blue/Teal and Subtle Orange Accents (Stone-50 background, Slate-800 text, Sky-700 primary, Amber-500 accent) -->
+    
+    <!-- Application Structure Plan: 
+         1. Hero Section: Executive summary and core value proposition.
+         2. Problem/Opportunity Toggle: Interactive element to contrast the old way vs. the new way.
+         3. Architecture Tabs: Explores the 3 core modules (Instructor, Student, Community) without cluttering the screen.
+         4. Interactive Case Simulator (The "Wow" Factor): A live dashboard simulating the "Mrs. K" case, allowing users to tweak socio-economic/behavioral parameters to see real-time changes in simulated physiological data (Chart.js) and student perspectives. This proves the core product thesis.
+         5. Business Model & Roadmap: Clean grid and timeline layouts for rapid comprehension of the commercial viability. 
+         This structure moves from "What is it?" to "Show me how it works" to "How do we sell it?", prioritizing logical flow and engagement. -->
+         
+    <!-- Visualization & Content Choices: 
+         - Goal: Compare old vs new -> Presentation: Interactive Toggle -> Justification: Active engagement highlights the paradigm shift better than static text. -> Library: Vanilla JS.
+         - Goal: Explain Architecture -> Presentation: Tabbed Interface -> Justification: Keeps cognitive load low while offering deep dives into each user persona (Instructor, Student). -> Library: Vanilla JS + Tailwind.
+         - Goal: Demonstrate Product Value (Mrs. K Case) -> Presentation: Interactive dual-axis line chart (Glucose/Cortisol) linked to range sliders -> Justification: Best way to show the relationship between SDOH inputs and physiological outputs, making the "case generator" concept tangible. -> Library: Chart.js (NO SVG).
+         - Goal: Show Roadmap -> Presentation: CSS Timeline -> Justification: Linear progression is easily scannable. -> Library: HTML/CSS. -->
+         
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. Unicode used for iconography. -->
+
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur border-b border-stone-200 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex-shrink-0 flex items-center gap-2">
+                    <span class="text-2xl" aria-hidden="true">&#x1F9EC;</span> <!-- DNA/Science Unicode -->
+                    <span class="font-bold text-xl tracking-tight text-sky-800">PFun IP Collaborative</span>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#vision" class="text-slate-600 hover:text-sky-700 transition">Vision</a>
+                    <a href="#simulator" class="text-slate-600 hover:text-sky-700 transition">Live Simulator</a>
+                    <a href="#business" class="text-slate-600 hover:text-sky-700 transition">Business Model</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-20">
+
+        <!-- Header / Executive Summary -->
+        <section class="text-center py-12 md:py-20 bg-gradient-to-b from-sky-50 to-stone-50 rounded-3xl border border-stone-100 shadow-sm mt-4">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 mb-6 tracking-tight">
+                Coalescing <span class="text-sky-700">Ethics</span> with <span class="text-amber-600">Quantitative Physiology</span>
+            </h1>
+            <p class="mt-4 text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
+                A B2B SaaS educational platform transforming static case studies into dynamic, data-driven simulations for interprofessional healthcare training.
+            </p>
+            <div class="mt-10">
+                <a href="#simulator" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-full shadow-sm text-white bg-sky-700 hover:bg-sky-800 transition-colors duration-200">
+                    Try the Case Simulator &#x2193;
+                </a>
+            </div>
+        </section>
+
+        <!-- Problem vs Opportunity -->
+        <section id="vision" class="scroll-mt-20">
+            <div class="mb-8">
+                <h2 class="text-3xl font-bold text-slate-900">The Paradigm Shift</h2>
+                <p class="mt-2 text-slate-600">Why traditional healthcare education needs an upgrade.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- The Problem -->
+                <div class="bg-white p-8 rounded-2xl border-l-4 border-rose-400 shadow-sm hover:shadow-md transition">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="text-2xl">&#x26A0;&#xFE0F;</span>
+                        <h3 class="text-xl font-bold text-slate-800">The Problem</h3>
+                    </div>
+                    <ul class="space-y-3 text-slate-600">
+                        <li class="flex gap-2"><span class="text-rose-400">&#x2716;</span> <b>Static Text:</b> Traditional case studies fail to capture dynamic physiological realities.</li>
+                        <li class="flex gap-2"><span class="text-rose-400">&#x2716;</span> <b>Missing Context:</b> They don't accurately reflect how Social Determinants of Health (SDOH) biologically impact patients over time.</li>
+                        <li class="flex gap-2"><span class="text-rose-400">&#x2716;</span> <b>High Friction:</b> Instructors spend excessive hours drafting and tailoring cases for multiple professions.</li>
+                    </ul>
+                </div>
+
+                <!-- The Opportunity -->
+                <div class="bg-white p-8 rounded-2xl border-l-4 border-emerald-400 shadow-sm hover:shadow-md transition">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="text-2xl">&#x1F4A1;</span>
+                        <h3 class="text-xl font-bold text-slate-800">The Opportunity</h3>
+                    </div>
+                    <p class="text-slate-600 mb-4">
+                        Leveraging PFun's physiofunctional simulation API to generate realistic patient data tailored to ethical or environmental "parameters".
+                    </p>
+                    <div class="bg-emerald-50 p-4 rounded-lg border border-emerald-100 text-emerald-800 font-medium">
+                        Creates a living simulation forcing students to ask: <br/>
+                        <span class="italic">"Whose problem is this: The Individual, The Organization, or Society?"</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Product Architecture -->
+        <section class="bg-slate-800 text-white rounded-3xl p-8 md:p-12 shadow-lg">
+            <div class="mb-10 text-center">
+                <h2 class="text-3xl font-bold">Product Architecture</h2>
+                <p class="mt-4 text-slate-300 max-w-2xl mx-auto">Three core modules working in synergy to provide a comprehensive educational experience.</p>
+            </div>
+
+            <div class="flex flex-col md:flex-row gap-6">
+                <!-- Tabs -->
+                <div class="md:w-1/3 flex flex-col gap-3" id="arch-tabs">
+                    <button class="arch-tab-btn active w-full text-left px-6 py-4 rounded-xl font-semibold bg-sky-600 text-white transition" data-target="arch-instructor">
+                        &#x1F4BB; Instructor Dashboard
+                    </button>
+                    <button class="arch-tab-btn w-full text-left px-6 py-4 rounded-xl font-semibold bg-slate-700 text-slate-300 hover:bg-slate-600 transition" data-target="arch-student">
+                        &#x1F393; Student Portal
+                    </button>
+                    <button class="arch-tab-btn w-full text-left px-6 py-4 rounded-xl font-semibold bg-slate-700 text-slate-300 hover:bg-slate-600 transition" data-target="arch-community">
+                        &#x1F310; Community Bulletin
+                    </button>
+                </div>
+
+                <!-- Content Panels -->
+                <div class="md:w-2/3 bg-slate-900 rounded-2xl p-6 md:p-8 min-h-[300px] border border-slate-700">
+                    <!-- Instructor -->
+                    <div id="arch-instructor" class="arch-panel block fade-in">
+                        <h3 class="text-2xl font-bold text-sky-400 mb-4">The Case Generator</h3>
+                        <p class="text-slate-300 mb-6">Instructors use a simple interface to design or modify patient scenarios rapidly.</p>
+                        <div class="grid sm:grid-cols-2 gap-4">
+                            <div class="bg-slate-800 p-4 rounded-lg">
+                                <h4 class="font-bold text-white mb-2">&#x1F3F5;&#xFE0F; Modifiable Parameters</h4>
+                                <p class="text-sm text-slate-400">Toggle socio-economic status, insurance, medication adherence, and behaviors (e.g., smoking).</p>
+                            </div>
+                            <div class="bg-slate-800 p-4 rounded-lg">
+                                <h4 class="font-bold text-white mb-2">&#x1F4C8; Dynamic Data</h4>
+                                <p class="text-sm text-slate-400">PFun API generates a realistic 14-day physiological dataset (CGM, Cortisol) based on inputs.</p>
+                            </div>
+                            <div class="bg-slate-800 p-4 rounded-lg sm:col-span-2">
+                                <h4 class="font-bold text-white mb-2">&#x1F3AF; Objectives Mapping</h4>
+                                <p class="text-sm text-slate-400">Align cases with IP competencies: Roles/Responsibilities, Values/Ethics, Communication, Teamwork.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Student -->
+                    <div id="arch-student" class="arch-panel hidden fade-in">
+                        <h3 class="text-2xl font-bold text-amber-400 mb-4">Interprofessional Portal</h3>
+                        <p class="text-slate-300 mb-6">Students log into the same case but view it through their specific professional lens to collaborate on a Plan of Care.</p>
+                        <div class="space-y-4">
+                            <div class="border-l-2 border-amber-500 pl-4">
+                                <h4 class="font-bold text-white">Critical Cues Dashboard</h4>
+                                <p class="text-sm text-slate-400">Highlight discipline-specific cues (e.g., PT notes med timing; Social Worker notes insurance lapse).</p>
+                            </div>
+                            <div class="border-l-2 border-amber-500 pl-4">
+                                <h4 class="font-bold text-white">Cross-Disciplinary Collaboration</h4>
+                                <p class="text-sm text-slate-400">Compare notes, identify overlapping responsibilities, formulate unified plans.</p>
+                            </div>
+                            <div class="border-l-2 border-amber-500 pl-4">
+                                <h4 class="font-bold text-white">The "Realms" Framework</h4>
+                                <p class="text-sm text-slate-400">Analyze cases across 1) Individual (Patient-Clinician), 2) Organizational (Hospital/Insurance), 3) Societal (Public Health).</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Community -->
+                    <div id="arch-community" class="arch-panel hidden fade-in">
+                        <h3 class="text-2xl font-bold text-emerald-400 mb-4">The Community Bulletin</h3>
+                        <p class="text-slate-300 mb-4">A forum-like marketplace for educators to share, discuss, and refine.</p>
+                        <div class="bg-slate-800 p-6 rounded-xl border border-slate-700 text-center mt-8">
+                            <span class="text-4xl block mb-4">&#x1F4E2;</span>
+                            <p class="text-slate-300">Share modified cases, discuss learning outcomes, and build a repository of "living" case studies across universities.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Simulator (The Core Feature) -->
+        <section id="simulator" class="scroll-mt-20">
+            <div class="mb-8">
+                <h2 class="text-3xl font-bold text-slate-900">Live Simulation: "The Mrs. K Scenario"</h2>
+                <p class="mt-2 text-slate-600 max-w-4xl">
+                    Experience the core value proposition. Adjust the patient parameters (Instructor Input) and watch how the PFun API alters the simulated physiology (Data Output), directly changing what the students observe (Student Interaction) and the resulting Ethical Dilemma.
+                </p>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow-xl border border-stone-200 overflow-hidden">
+                <!-- Control Panel (Instructor) -->
+                <div class="bg-slate-50 border-b border-stone-200 p-6">
+                    <h3 class="font-bold text-slate-800 flex items-center gap-2 mb-4">
+                        <span class="bg-sky-100 text-sky-800 px-2 py-1 rounded text-xs">Step 1</span> 
+                        Instructor Parameters (Mrs. K, Type 2 Diabetes, Amputation Risk)
+                    </h3>
+                    <div class="grid sm:grid-cols-3 gap-6">
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-2">Financial Stress (Impacts Meds)</label>
+                            <input type="range" id="sim-finance" min="0" max="10" value="2" class="w-full accent-rose-500">
+                            <div class="flex justify-between text-xs text-slate-500 mt-1"><span>Severe</span><span>Stable</span></div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-2">Psychological Stress (Impacts Cortisol)</label>
+                            <input type="range" id="sim-stress" min="0" max="10" value="8" class="w-full accent-amber-500">
+                            <div class="flex justify-between text-xs text-slate-500 mt-1"><span>Low</span><span>High</span></div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-2">Smoking Habit</label>
+                            <input type="range" id="sim-smoke" min="0" max="2" value="1" step="1" class="w-full accent-slate-500">
+                            <div class="flex justify-between text-xs text-slate-500 mt-1"><span>None</span><span>1 Pack</span><span>2 Packs</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Data Output (Chart) -->
+                <div class="p-6 border-b border-stone-200">
+                    <h3 class="font-bold text-slate-800 flex items-center gap-2 mb-4">
+                        <span class="bg-sky-100 text-sky-800 px-2 py-1 rounded text-xs">Step 2</span> 
+                        Simulated Physiological Data Output
+                    </h3>
+                    
+                    <!-- CRITICAL: Chart Container styled per instructions -->
+                    <div class="chart-container bg-white border border-slate-100 rounded-xl p-2 shadow-inner">
+                        <canvas id="mrsKChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Student Views (The Dilemma) -->
+                <div class="p-6 bg-slate-50">
+                    <h3 class="font-bold text-slate-800 flex items-center gap-2 mb-4">
+                        <span class="bg-sky-100 text-sky-800 px-2 py-1 rounded text-xs">Step 3</span> 
+                        Student Interaction & Ethical Dilemma
+                    </h3>
+                    <div class="grid md:grid-cols-3 gap-4 mb-6">
+                        <!-- PT View -->
+                        <div class="bg-white p-4 rounded-xl border border-stone-200 shadow-sm">
+                            <h4 class="font-bold text-sky-700 mb-2 flex items-center gap-2">&#x1F9B5; PT Student</h4>
+                            <p id="pt-obs" class="text-sm text-slate-600">Observing data...</p>
+                        </div>
+                        <!-- P&O View -->
+                        <div class="bg-white p-4 rounded-xl border border-stone-200 shadow-sm">
+                            <h4 class="font-bold text-amber-700 mb-2 flex items-center gap-2">&#x1F9BF; P&O Student</h4>
+                            <p id="po-obs" class="text-sm text-slate-600">Observing data...</p>
+                        </div>
+                        <!-- OT View -->
+                        <div class="bg-white p-4 rounded-xl border border-stone-200 shadow-sm">
+                            <h4 class="font-bold text-emerald-700 mb-2 flex items-center gap-2">&#x1F3E0; OT Student</h4>
+                            <p id="ot-obs" class="text-sm text-slate-600">Observing data...</p>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-rose-50 border border-rose-200 rounded-xl p-5">
+                        <h4 class="font-bold text-rose-800 mb-2">The Collaboration Challenge</h4>
+                        <p id="dilemma-text" class="text-sm text-rose-900">
+                            Students must collaborate to adjust the therapy schedule, advocate for resources, and address societal questions based on the parameters set above.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Business Model -->
+        <section id="business" class="scroll-mt-20">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-slate-900">Business Model</h2>
+                <p class="mt-2 text-slate-600">A B2B SaaS approach targeting healthcare education.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8 mb-12">
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-stone-200">
+                    <h3 class="text-xl font-bold text-sky-800 mb-4 border-b pb-2">Customer Segments</h3>
+                    <ul class="space-y-4">
+                        <li class="flex items-start gap-3">
+                            <span class="bg-sky-100 text-sky-700 px-2 py-1 rounded text-sm font-bold mt-0.5">1 Primary</span>
+                            <div>
+                                <p class="font-semibold text-slate-800">University Health Science Colleges</p>
+                                <p class="text-sm text-slate-500">e.g., ASU College of Health Sciences</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="bg-slate-100 text-slate-600 px-2 py-1 rounded text-sm font-bold mt-0.5">2 Secondary</span>
+                            <div>
+                                <p class="font-semibold text-slate-800">Med, Nursing, Pharmacy Schools</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="bg-slate-100 text-slate-600 px-2 py-1 rounded text-sm font-bold mt-0.5">3 Tertiary</span>
+                            <div>
+                                <p class="font-semibold text-slate-800">CEU Providers</p>
+                                <p class="text-sm text-slate-500">For licensed practitioners</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-stone-200">
+                    <h3 class="text-xl font-bold text-sky-800 mb-4 border-b pb-2">Value Proposition</h3>
+                    <ul class="space-y-4">
+                        <li class="flex items-start gap-3">
+                            <span class="text-xl">&#x1F3DB;&#xFE0F;</span>
+                            <div>
+                                <p class="font-semibold text-slate-800">For Universities</p>
+                                <p class="text-sm text-slate-600">Fulfills mandatory IPE accreditation with cutting-edge tech; saves faculty hundreds of hours.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-xl">&#x1F468;&#x200D;&#x1F393;</span>
+                            <div>
+                                <p class="font-semibold text-slate-800">For Students</p>
+                                <p class="text-sm text-slate-600">Provides high-fidelity quantitative interpretation combined with soft-skill ethical reasoning.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Revenue Tiers -->
+            <h3 class="text-2xl font-bold text-center text-slate-900 mb-8">Revenue Streams (B2B SaaS)</h3>
+            <div class="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+                <!-- Basic -->
+                <div class="bg-white rounded-2xl shadow border border-stone-200 p-6 flex flex-col relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-slate-300"></div>
+                    <h4 class="text-xl font-bold text-slate-800 mb-2">Basic Tier</h4>
+                    <p class="text-sm text-slate-500 mb-6 flex-grow">For smaller departments starting with interprofessional education.</p>
+                    <ul class="space-y-2 text-sm text-slate-600 mb-6 border-t pt-4">
+                        <li>&#x2713; Access to standard case library</li>
+                        <li>&#x2713; Basic IP collaboration tools</li>
+                        <li>&#x2713; Static student portals</li>
+                    </ul>
+                    <button class="w-full py-2 bg-slate-100 text-slate-700 rounded-lg font-medium cursor-not-allowed">Departmental License</button>
+                </div>
+                <!-- Pro -->
+                <div class="bg-white rounded-2xl shadow-lg border-2 border-sky-500 p-6 flex flex-col relative transform md:-translate-y-4">
+                    <div class="absolute top-0 right-0 bg-sky-500 text-white text-xs font-bold px-3 py-1 rounded-bl-lg">POPULAR</div>
+                    <h4 class="text-xl font-bold text-sky-800 mb-2">Pro Tier</h4>
+                    <p class="text-sm text-slate-500 mb-6 flex-grow">Full platform access for comprehensive health science colleges.</p>
+                    <ul class="space-y-2 text-sm text-slate-600 mb-6 border-t pt-4">
+                        <li>&#x2713; <span class="font-bold">Full access to PFun Simulation API</span></li>
+                        <li>&#x2713; Custom physiological dataset generation</li>
+                        <li>&#x2713; Community Bulletin access</li>
+                    </ul>
+                    <button class="w-full py-2 bg-sky-600 hover:bg-sky-700 text-white rounded-lg font-medium transition">College License</button>
+                </div>
+                <!-- Enterprise -->
+                <div class="bg-white rounded-2xl shadow border border-stone-200 p-6 flex flex-col relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-amber-500"></div>
+                    <h4 class="text-xl font-bold text-slate-800 mb-2">White-Label</h4>
+                    <p class="text-sm text-slate-500 mb-6 flex-grow">For large institutions building internal simulation centers.</p>
+                    <ul class="space-y-2 text-sm text-slate-600 mb-6 border-t pt-4">
+                        <li>&#x2713; All Pro features</li>
+                        <li>&#x2713; Institutional branding</li>
+                        <li>&#x2713; Dedicated database architecture</li>
+                    </ul>
+                    <button class="w-full py-2 bg-slate-100 text-slate-700 rounded-lg font-medium cursor-not-allowed">Enterprise Contract</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Roadmap -->
+        <section class="py-12 border-t border-stone-200">
+            <h2 class="text-3xl font-bold text-center text-slate-900 mb-10">Development Roadmap</h2>
+            
+            <div class="max-w-4xl mx-auto relative">
+                <!-- Timeline Line -->
+                <div class="hidden md:block absolute top-1/2 left-0 w-full h-1 bg-sky-100 -translate-y-1/2 z-0"></div>
+                
+                <div class="grid md:grid-cols-3 gap-8 relative z-10">
+                    <!-- Phase 1 -->
+                    <div class="bg-white p-6 rounded-2xl border border-sky-200 shadow-sm text-center relative">
+                        <div class="w-10 h-10 bg-sky-600 text-white rounded-full flex items-center justify-center font-bold text-lg mx-auto mb-4 border-4 border-white shadow-sm absolute -top-5 left-1/2 -translate-x-1/2">1</div>
+                        <h3 class="font-bold text-sky-800 mt-2">Phase 1: MVP</h3>
+                        <p class="text-xs font-semibold text-slate-400 mb-3 uppercase tracking-wider">Months 1-3</p>
+                        <ul class="text-sm text-slate-600 text-left space-y-1 list-disc pl-4">
+                            <li>Instructor Case Generator UI</li>
+                            <li>Static PFun API visual charts (3-5 personas)</li>
+                            <li>Digitize ASU Activity Sheet</li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Phase 2 -->
+                    <div class="bg-white p-6 rounded-2xl border border-sky-200 shadow-sm text-center relative mt-8 md:mt-0">
+                        <div class="w-10 h-10 bg-sky-600 text-white rounded-full flex items-center justify-center font-bold text-lg mx-auto mb-4 border-4 border-white shadow-sm absolute -top-5 left-1/2 -translate-x-1/2">2</div>
+                        <h3 class="font-bold text-sky-800 mt-2">Phase 2: Pilot</h3>
+                        <p class="text-xs font-semibold text-slate-400 mb-3 uppercase tracking-wider">Months 4-6</p>
+                        <ul class="text-sm text-slate-600 text-left space-y-1 list-disc pl-4">
+                            <li>Deploy MVP to single cohort (ASU Fall IP)</li>
+                            <li>Gather qualitative feedback</li>
+                            <li>Usability & engagement tuning</li>
+                        </ul>
+                    </div>
+
+                    <!-- Phase 3 -->
+                    <div class="bg-white p-6 rounded-2xl border border-sky-200 shadow-sm text-center relative mt-8 md:mt-0">
+                        <div class="w-10 h-10 bg-amber-500 text-white rounded-full flex items-center justify-center font-bold text-lg mx-auto mb-4 border-4 border-white shadow-sm absolute -top-5 left-1/2 -translate-x-1/2">3</div>
+                        <h3 class="font-bold text-amber-600 mt-2">Commercialization</h3>
+                        <p class="text-xs font-semibold text-slate-400 mb-3 uppercase tracking-wider">Months 7-12</p>
+                        <ul class="text-sm text-slate-600 text-left space-y-1 list-disc pl-4">
+                            <li>Implement billing & user roles</li>
+                            <li>Launch Community Bulletin</li>
+                            <li>Outbound sales to 20 target universities</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-slate-900 text-slate-400 py-8 text-center mt-12 border-t border-slate-800">
+        <p class="text-sm">PFun IP Collaborative &copy; 2026. Data visualization conceptualized via Physiofunctional models.</p>
+    </footer>
+
+    <!-- Interactive Logic -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // --- 1. Architecture Tabs Logic ---
+            const tabBtns = document.querySelectorAll('.arch-tab-btn');
+            const panels = document.querySelectorAll('.arch-panel');
+
+            tabBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    // Remove active styles from all
+                    tabBtns.forEach(b => {
+                        b.classList.remove('bg-sky-600', 'text-white');
+                        b.classList.add('bg-slate-700', 'text-slate-300');
+                    });
+                    // Add active style to clicked
+                    btn.classList.remove('bg-slate-700', 'text-slate-300');
+                    btn.classList.add('bg-sky-600', 'text-white');
+
+                    // Hide all panels
+                    panels.forEach(p => p.classList.add('hidden'));
+                    
+                    // Show target panel
+                    const targetId = btn.getAttribute('data-target');
+                    document.getElementById(targetId).classList.remove('hidden');
+                });
+            });
+
+            // --- 2. Live Simulator (Mrs K) Logic ---
+            
+            // Elements
+            const sliderFinance = document.getElementById('sim-finance');
+            const sliderStress = document.getElementById('sim-stress');
+            const sliderSmoke = document.getElementById('sim-smoke');
+            
+            const ptObs = document.getElementById('pt-obs');
+            const poObs = document.getElementById('po-obs');
+            const otObs = document.getElementById('ot-obs');
+            const dilemmaText = document.getElementById('dilemma-text');
+
+            // Chart setup
+            const ctx = document.getElementById('mrsKChart').getContext('2d');
+            
+            // Generate basic 14 day time labels
+            const labels = Array.from({length: 14}, (_, i) => `Day ${i+1}`);
+
+            // Initial Chart Configuration
+            const simChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'CGM Avg Glucose (mg/dL)',
+                            data: [], // Populated dynamically
+                            borderColor: 'rgb(14 165 233)', // sky-500
+                            backgroundColor: 'rgba(14, 165, 233, 0.1)',
+                            borderWidth: 3,
+                            yAxisID: 'y',
+                            tension: 0.4,
+                            fill: true
+                        },
+                        {
+                            label: 'Cortisol Level (Simulated)',
+                            data: [], // Populated dynamically
+                            borderColor: 'rgb(245 158 11)', // amber-500
+                            borderDash: [5, 5],
+                            borderWidth: 2,
+                            yAxisID: 'y1',
+                            tension: 0.4
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false, // Required for container control
+                    interaction: { mode: 'index', intersect: false },
+                    plugins: {
+                        legend: { position: 'top', labels: { usePointStyle: true } },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) { label += ': '; }
+                                    if (context.parsed.y !== null) {
+                                        label += Math.round(context.parsed.y);
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: { grid: { display: false } },
+                        y: {
+                            type: 'linear',
+                            display: true,
+                            position: 'left',
+                            title: { display: true, text: 'Glucose (mg/dL)' },
+                            min: 80,
+                            max: 300
+                        },
+                        y1: {
+                            type: 'linear',
+                            display: true,
+                            position: 'right',
+                            title: { display: true, text: 'Cortisol (Relative)' },
+                            grid: { drawOnChartArea: false },
+                            min: 0,
+                            max: 100
+                        }
+                    }
+                }
+            });
+
+            // Function to generate simulated data based on inputs
+            function generateSimData(finance, stress, smoke) {
+                // Base values
+                let baseGlucose = 130;
+                let baseCortisol = 30;
+                
+                // Modifiers based on model business logic
+                // Low finance = lower med adherence = higher average glucose + variance
+                const medAdherenceDrop = (10 - finance) * 5; 
+                baseGlucose += medAdherenceDrop;
+                const glucoseVariance = (10 - finance) * 3 + (smoke * 5);
+
+                // High stress = high cortisol
+                baseCortisol += (stress * 5);
+                const cortisolVariance = stress * 2;
+
+                const glucoseData = [];
+                const cortisolData = [];
+
+                for (let i = 0; i < 14; i++) {
+                    // Add pseudo-random variance based on parameters
+                    let gPoint = baseGlucose + (Math.random() * glucoseVariance * 2 - glucoseVariance);
+                    // Add a spike every few days if stress/finance is bad
+                    if ((stress > 7 || finance < 4) && i % 4 === 0) { gPoint += 40; }
+                    
+                    let cPoint = baseCortisol + (Math.random() * cortisolVariance * 2 - cortisolVariance);
+                    
+                    glucoseData.push(gPoint);
+                    cortisolData.push(cPoint);
+                }
+
+                return { glucose: glucoseData, cortisol: cortisolData };
+            }
+
+            // Function to update the descriptive text based on severity
+            function updateStudentViews(finance, stress, smoke) {
+                const isSevere = finance < 4 || stress > 7 || smoke > 0;
+                
+                if (isSevere) {
+                    ptObs.innerHTML = `<span class="text-rose-600 font-bold">Alert:</span> Erratic CGM variability noted. Cannot safely undergo intensive rehab at 2:00 PM due to repeated afternoon glucose crashes resulting from poor adherence.`;
+                    poObs.innerHTML = `<span class="text-rose-600 font-bold">Alert:</span> Poor glucose control and elevated cortisol will severely delay wound healing on the residual limb. Prosthetic fitting timeline must be delayed.`;
+                    
+                    let otText = `Patient is experiencing high allostatic load. `;
+                    if (finance < 4) otText += `Financial instability is likely causing rationing of medications. `;
+                    if (smoke > 0) otText += `Smoking (${smoke} pack/day) is being used as a maladaptive coping mechanism for stress.`;
+                    otObs.innerText = otText;
+
+                    dilemmaText.innerHTML = `<strong>Societal Realm:</strong> Whose responsibility is her lack of access to healthy food and affordable meds? <br/><strong>Organizational Realm:</strong> Can we advocate for emergency social work intervention before continuing standard therapy?`;
+                } else {
+                    ptObs.innerText = `Glucose levels are relatively stable. Cleared for standard physical rehabilitation schedule.`;
+                    poObs.innerText = `Cortisol and glucose within acceptable ranges for normal wound healing. Proceed with standard prosthetic timeline.`;
+                    otObs.innerText = `Patient demonstrates good coping mechanisms and routine management. Continue standard occupational ADL training.`;
+                    
+                    dilemmaText.innerHTML = `<strong>Individual Realm:</strong> Patient is managing well. How do we ensure this stability is maintained post-discharge?`;
+                }
+            }
+
+            // Main update function
+            function updateSimulation() {
+                const financeVal = parseInt(sliderFinance.value);
+                const stressVal = parseInt(sliderStress.value);
+                const smokeVal = parseInt(sliderSmoke.value);
+
+                // Update Chart Data
+                const newData = generateSimData(financeVal, stressVal, smokeVal);
+                simChart.data.datasets[0].data = newData.glucose;
+                simChart.data.datasets[1].data = newData.cortisol;
+                simChart.update();
+
+                // Update Text Views
+                updateStudentViews(financeVal, stressVal, smokeVal);
+            }
+
+            // Attach Listeners
+            sliderFinance.addEventListener('input', updateSimulation);
+            sliderStress.addEventListener('input', updateSimulation);
+            sliderSmoke.addEventListener('input', updateSimulation);
+
+            // Initialize on load
+            updateSimulation();
+        });
+    </script>
+</body>
+</html>
