@@ -1,0 +1,4 @@
+[submodule "docs/pfun-cma-model"]
+	path = docs/pfun-cma-model
+	url = https://github.com/pfun-health/pfun-cma-model.git
+	branch = main
